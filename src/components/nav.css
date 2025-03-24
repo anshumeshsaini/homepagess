@@ -1,0 +1,26 @@
+.toggleOptions {
+    display: inline-block;
+    border-radius: 30px;
+  
+    button {
+      height: 45px;
+      padding: 0 20px;
+      cursor: pointer;
+      transition: all 0.5s;
+      margin: 0 3px;
+    }
+  
+    button.selected {
+      color: inherit !important;
+      font-weight: normal;
+    }
+  
+    .indicator {
+      background-color: rgb(6 182 212 / 0.3) !important;
+      border-radius: 50px;
+      height: calc(100% - 6px) !important;
+      margin-top: 3px;
+      backdrop-filter: blur(4px);
+    }
+  }
+  

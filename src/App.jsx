@@ -31,6 +31,11 @@ function App() {
     return () => clearInterval(bootInterval);
   }, []);
 
+
+  const ScrollElement = (item) => {
+    document.getElementById(item).scrollIntoView({ behavior: "smooth" });
+    return;
+  };
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
       {/* Initial loading animation */}
@@ -39,9 +44,9 @@ function App() {
           <GlitchText text={bootMessages[bootSequence]} intensity="high" />
         </div>
         <div className="w-64 h-2 bg-gray-800 rounded-full overflow-hidden">
-          <div 
+          <div
             className="h-full bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full"
-            style={{ 
+            style={{
               width: `${(bootSequence + 1) / bootMessages.length * 100}%`,
               transition: 'width 0.5s ease-out'
             }}
@@ -52,7 +57,7 @@ function App() {
       {/* Background effects */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900 via-black to-black opacity-70"></div>
       <div className="fixed inset-0 bg-grid-pattern opacity-10"></div>
-      
+
       {/* Animated grid lines */}
       <div className="fixed inset-0 overflow-hidden">
         <div className="cyber-grid"></div>
@@ -60,24 +65,19 @@ function App() {
 
       {/* Digital noise effect */}
       <div className="digital-noise"></div>
-      
+
       {/* Scanlines effect */}
       <div className="scanlines"></div>
-      
+
       {/* Data stream effect */}
       <div className="data-stream"></div>
-      
+
       {/* Matrix rain effect */}
 
       {/* Main content */}
       <div className="relative z-10">
-        <NavBar />
+        <NavBar scrollToComponent={ScrollElement} />
         <HeroSection />
-        
-
-
-
-
       </div>
     </div>
   );

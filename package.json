@@ -10,9 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "core-js": "^3.41.0",
+    "framer-motion": "^12.5.0",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-llamp-menu": "^1.0.30"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

@@ -1,112 +1,148 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import GlitchText from './GlitchText.jsx';
+import { useCallback, useEffect, useState } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { LavalampMenu } from "react-llamp-menu";
+import logo from "../img/ps-final1.png";
+import "./nav.css";
 
-const NavBar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState('Home');
+const Navbar = ({ scrollToComponent }) => {
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isScrollingUp, setIsScrollingUp] = useState(true);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const controls = useAnimation();
+
+  const setProgress = useCallback(() => {
+    const circles = document.querySelectorAll("circle");
+    circles.forEach((ele) => {
+      const radius = ele.r.baseVal.value;
+      const circumference = radius * 2 * Math.PI;
+      ele.style.strokeDasharray = `${circumference} ${circumference}`;
+      ele.style.strokeDashoffset = `${circumference}`;
+      const offset =
+        circumference -
+        ((Math.floor(Math.random() * 60) + 10) / 100) * circumference;
+      ele.style.strokeDashoffset = offset;
+    });
+  }, []);
+
+  useEffect(() => {
+    setProgress();
+    const svgs = document.querySelectorAll(".rings");
+    svgs.forEach((svg) => {
+      const duration = Math.random() * 6 + 2;
+      svg.style.animation = `spin ${duration}s linear infinite ${Math.random() < 0.5 ? "reverse" : ""
+        }`;
+    });
+  }, [setProgress]);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+      setIsScrollingUp(currentScrollY < lastScrollY);
+      setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
 
-  const menuItems = ['Home', 'About', 'Upcoming', 'Events'];
+    const debouncedHandleScroll = debounce(handleScroll, 100);
+
+    window.addEventListener("scroll", debouncedHandleScroll);
+    window.addEventListener("resize", handleResize);
+
+    if (screenWidth > 770) {
+      if (lastScrollY < 100) {
+        controls.start({ y: isScrollingUp ? 0 : "-100%" });
+      } else {
+        controls.start({ y: isScrollingUp ? "-100%" : "-250%" });
+      }
+    } else {
+      controls.start({ y: isScrollingUp ? "50%" : "250%" });
+    }
+
+    return () => {
+      window.removeEventListener("scroll", debouncedHandleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isScrollingUp, controls, lastScrollY, screenWidth]);
 
   return (
-      <nav
-          className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-              isScrolled ? 'py-2 bg-black/80 backdrop-blur-md border-b border-cyan-900/30' : 'py-4'
-          }`}
+    <nav>
+      {/* ---- Show NavBar on Hover ---- */}
+      <div
+        className="fixed lg:top-0 bottom-0 h-6 w-screen z-30"
+        onMouseOver={() =>
+          controls.start({
+            y: screenWidth > 770 ? (lastScrollY < 100 ? 0 : "-100%") : "50%",
+          })
+        }
+      ></div>
+
+      {/* ---- Logo ----- */}
+      <div className="relative w-20 h-20 lg:w-28 lg:h-28 translate-x-4 translate-y-4">
+        {/* svg circles to rotate for logo */}
+        {[40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53].map((e) => (
+          <svg
+            key={e}
+            className="rings lg:w-36 lg:h-36 absolute stroke-cyan-300 drop-shadow-[0_0_.75rem_var(--cyan-300)] animate-spin will-change-transform"
+            viewBox="0 0 110 110"
+          >
+            <circle
+              strokeWidth={Math.random() * 1.75 + 1}
+              fill="transparent"
+              r={e}
+              cx="55"
+              cy="55"
+            />
+          </svg>
+        ))}
+        <img
+          className="logo w-16 h-16 lg:w-28 lg:h-28 translate-x-2 translate-y-2 lg:translate-x-4 lg:translate-y-5 drop-shadow-[0_0_.5rem_var(--cyan-300)]"
+          src={logo}
+        />
+      </div>
+
+      {/* ----------------- Nav Buttons ----------------- */}
+      <motion.nav
+        initial={{ y: 0 }}
+        animate={controls}
+        className="fixed w-screen h-10 bottom-8 lg:top-14 z-50"
       >
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center">
-            {/* Logo */}
-            <div className="flex items-center">
-              <div className="relative">
-                <div className="w-14 h-14 rounded-full border-2 border-cyan-400 flex items-center justify-center overflow-hidden logo-container">
-                  <div className="absolute inset-0 logo-glow"></div>
-                  <div className="relative z-10 w-10 h-10 bg-black rounded-full flex items-center justify-center">
-                    <div className="w-8 h-8 text-cyan-400">
-                      {/* Hooded figure logo */}
-                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" stroke="currentColor" strokeWidth="1.5" />
-                        <path d="M12 6C9.79 6 8 7.79 8 10V13C8 13.55 8.45 14 9 14H15C15.55 14 16 13.55 16 13V10C16 7.79 14.21 6 12 6Z" fill="currentColor" />
-                        <path d="M12 17C10.9 17 10 16.1 10 15H14C14 16.1 13.1 17 12 17Z" fill="currentColor" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="ml-2">
-                <div className="font-bold text-xl text-cyan-400 cyber-glow">CYBERONITES</div>
-              </div>
-            </div>
-
-            {/* Desktop Menu */}
-            <div className="hidden md:flex">
-              <div className="cyber-nav-container">
-                {menuItems.map((item) => (
-                    <button
-                        key={item}
-                        className={`px-4 py-2 mx-1 relative overflow-hidden nav-item ${
-                            activeItem === item ? 'text-cyan-400 active-nav-item' : 'text-gray-300 hover:text-white'
-                        }`}
-                        onClick={() => setActiveItem(item)}
-                    >
-                  <span className="relative z-10">
-                    {activeItem === item ? <GlitchText text={item} /> : item}
-                  </span>
-                      {activeItem === item && (
-                          <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 glow-line"></span>
-                      )}
-                    </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <button
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="text-cyan-400 hover:text-cyan-300 transition-colors"
-              >
-                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-          </div>
+        <div className="flex justify-center">
+          <LavalampMenu
+            className="toggleOptions overflow-hidden font-['Rubik_Glitch',_system-ui] border-x-2
+              bg-black/30 border-cyan-300
+              shadow-[0_0_15px_rgba(0,255,255,0.3)]
+              backdrop-blur-md bg-gradient-to-r from-cyan-500/10 to-blue-500/10 
+              text-cyan-300 rounded-full"
+          >
+            <ul className="flex items-center">
+              {/* Add the items to the array */}
+              {["Home", "About", "Upcoming", "Events"].map((e) => (
+                <li key={e}>
+                  <button
+                    className="h-10 px-2 lg:px-10 mx-[2px] hover:text-cyan-500
+                        rounded-full transition-all duration-300 ease-in-out"
+                    onClick={() => scrollToComponent(e)}
+                  >
+                    {e}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </LavalampMenu>
         </div>
-
-        {/* Mobile Menu */}
-        <div
-            className={`md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-md border-b border-cyan-900/30 transition-all duration-300 ${
-                mobileMenuOpen ? 'max-h-96 py-4' : 'max-h-0 overflow-hidden'
-            }`}
-        >
-          <div className="container mx-auto px-4">
-            {menuItems.map((item) => (
-                <button
-                    key={item}
-                    className={`block w-full text-left px-4 py-3 ${
-                        activeItem === item ? 'text-cyan-400' : 'text-gray-300'
-                    }`}
-                    onClick={() => {
-                      setActiveItem(item);
-                      setMobileMenuOpen(false);
-                    }}
-                >
-                  {item}
-                </button>
-            ))}
-          </div>
-        </div>
-      </nav>
+      </motion.nav>
+    </nav>
   );
-};
+}
 
-export default NavBar;
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+export default Navbar;
