@@ -3,6 +3,7 @@ import { Monitor, Shield, Users, Cpu, Database } from 'lucide-react';
 import GlitchText from './GlitchText.jsx';
 import CyberButton from './CyberButton.jsx';
 import TypewriterEffect from './TypewriterEffect.jsx';
+import "./hero.css"
 
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -197,13 +198,13 @@ const HeroSection = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
               <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                <div className="text-white mb-2">Welcome to</div>
+                <div className="text-white mb-2 glitch-text">Welcome to</div>
                 <div className="text-cyan-400 cyber-glow">
                   <GlitchText text="CYBERONITES" intensity="high" />
                 </div>
               </h1>
 
-              <div className="mb-8">
+        <div className="mb-8">
                 <h2 className="text-2xl md:text-3xl font-bold mb-2">
                   <span className="text-white">Empowering Students,</span><br />
                   <span className="text-cyan-400">Protecting </span>
@@ -223,37 +224,19 @@ const HeroSection = () => {
 
             <div className="relative">
               <div className="cyber-grid-container">
-                <div className="connection-node absolute top-0 left-1/4 transform -translate-x-1/2">
-                  <div className="cyber-icon">
-                    <Monitor className="w-12 h-12 text-cyan-400" />
-                  </div>
-                </div>
 
-                <div className="connection-node absolute top-1/3 right-1/4 transform translate-x-1/2">
-                  <div className="cyber-icon">
-                    <Cpu className="w-12 h-12 text-cyan-400" />
-                  </div>
-                </div>
 
-                <div className="connection-node absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div className="cyber-icon large">
-                    <Shield className="w-16 h-16 text-cyan-400" />
-                  </div>
-                </div>
 
-                <div className="connection-node absolute bottom-1/3 left-1/4 transform -translate-x-1/2">
-                  <div className="cyber-icon">
-                    <Database className="w-12 h-12 text-cyan-400" />
-                  </div>
-                </div>
+
+
+
+
 
                 <div className="connection-node absolute bottom-0 right-1/4 transform translate-x-1/2">
-                  <div className="cyber-icon">
-                    <Users className="w-12 h-12 text-cyan-400" />
-                  </div>
+
                 </div>
 
-                <div className="cyber-text-container absolute right-0 top-1/4 max-w-xs">
+                <div className="cyber-text-container absolute right-0 top-1/4 max-w-lg">
                   <h3 className="text-xl font-bold mb-2 text-cyan-300">
                     Building the next generation of <span className="text-cyan-400">cyber experts</span>
                   </h3>
@@ -261,6 +244,7 @@ const HeroSection = () => {
                     through education and <span className="text-cyan-400">hands-on training</span>. Our <span className="text-cyan-400">university-based club</span> offers workshops, seminars, equipping students with the skills and knowledge to tackle the <span className="text-cyan-400">challenges of the digital world</span> and <span className="text-cyan-400">secure our future</span>.
                   </p>
                 </div>
+
               </div>
             </div>
           </div>
