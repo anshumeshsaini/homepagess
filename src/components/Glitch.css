@@ -1,31 +1,28 @@
 .glitch-text {
-    position: relative;
-    display: inline-block;
-    font-weight: bold;
-    font-size: 2rem;
-    color: #fff;
-    text-shadow: 0px 0px 5px rgba(0, 255, 255, 0.7),
-    0px 0px 10px rgba(255, 0, 255, 0.7);
-    transition: color 0.2s ease-in-out, opacity 0.2s;
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 2rem;
+  color: #fff;
+  text-shadow: 0px 0px 3px rgba(0, 255, 255, 0.5);
+  transition: color 0.2s ease-in-out, opacity 0.2s;
 }
 
 .glitch-text.glitching {
-    animation: glitch-animation 0.15s infinite linear alternate,
-    glitch-opacity 0.5s infinite alternate;
+  animation: glitch-animation 0.1s infinite linear alternate,
+             glitch-opacity 0.3s infinite alternate;
 }
 
-/* 🌀 Reality-Bending Animations */
 @keyframes glitch-animation {
-    0% { transform: translate(1px, -1px) skewX(-5deg); color: #ff0033; }
-    25% { transform: translate(-2px, 2px) skewX(5deg); color: #00ffcc; }
-    50% { transform: translate(2px, -2px) skewX(-5deg); color: #ff00ff; }
-    75% { transform: translate(-1px, 1px) skewX(5deg); color: #ffff00; }
-    100% { transform: translate(0px, 0px) skewX(0deg); color: white; }
+  0% { transform: translate(0.5px, -0.5px) skewX(-2deg); color: #ff0033; }
+  25% { transform: translate(-1px, 1px) skewX(2deg); color: #00ffcc; }
+  50% { transform: translate(1px, -1px) skewX(-2deg); color: #ff00ff; }
+  75% { transform: translate(-0.5px, 0.5px) skewX(2deg); color: #ffff00; }
+  100% { transform: translate(0px, 0px) skewX(0deg); color: white; }
 }
 
-/* 🌀 Quantum Fading (Text randomly vanishes and reappears) */
 @keyframes glitch-opacity {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
 }

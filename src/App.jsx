@@ -75,9 +75,14 @@ function App() {
       {/* Matrix rain effect */}
 
       {/* Main content */}
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col min-h-screen">
         <NavBar scrollToComponent={ScrollElement} />
-        <HeroSection />
+        
+        <main className="flex-1">
+          <div className="container">
+            <HeroSection />
+          </div>
+        </main>
       </div>
     </div>
   );
