@@ -32,50 +32,67 @@ const CyberButton = ({ children, primary = false, onClick }) => {
   const handleMouseUp = () => setIsPressed(false);
 
   return (
-      <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className={`relative overflow-hidden py-3 px-6 rounded-xl font-bold 
-                  transition-all duration-300 cyberpunk-button 
-                  ${primary ? "bg-cyan-600 text-black" : "bg-transparent border border-cyan-500 text-cyan-400"} 
-                  ${isHovered ? "shadow-[0_0_25px_rgba(0,255,255,0.9)]" : ""} 
-                  ${isPressed ? "scale-95" : ""}`}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onClick={onClick}
-      >
-        {/* Holographic Glow */}
-        <div className={`absolute inset-0 transition-all duration-300 ${isHovered ? "bg-cyan-400/20" : "bg-cyan-800/10"}`}></div>
+    <motion.button
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      className={`relative overflow-hidden py-3 px-8 rounded-lg font-medium
+                  backdrop-blur-sm transition-all duration-200
+                  ${primary 
+                    ? "bg-gradient-to-r from-cyan-500 to-cyan-600 text-white border border-cyan-400/30" 
+                    : "bg-black/30 border border-cyan-500/30 text-cyan-400"
+                  } 
+                  ${isHovered ? "shadow-[0_0_15px_rgba(6,182,212,0.3)]" : ""}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onClick={onClick}
+    >
+      {/* Subtle Background Gradient */}
+      <div className={`absolute inset-0 transition-opacity duration-200 
+                    ${isHovered ? "opacity-100" : "opacity-0"}
+                    ${primary 
+                      ? "bg-gradient-to-r from-cyan-400/10 to-cyan-300/10" 
+                      : "bg-gradient-to-r from-cyan-500/5 to-cyan-400/5"
+                    }`}
+      />
 
-        {/* Text */}
-        <span className="relative z-10 flex items-center justify-center">{children}</span>
+      {/* Button Text with Modern Spacing */}
+      <span className="relative z-10 flex items-center justify-center tracking-wide">
+        {children}
+      </span>
 
-        {/* Neon Border */}
-        <div className={`absolute inset-0 rounded pointer-events-none transition-opacity duration-300 
-                      ${isHovered ? "opacity-100 border-2 border-cyan-300 shadow-[0_0_15px_rgba(0,255,255,0.7)]"
-            : "opacity-0 border border-cyan-400 shadow-[0_0_10px_rgba(0,255,255,0.5)]"}`}>
-        </div>
+      {/* Modernized Border Effect */}
+      <div className={`absolute inset-0 rounded-lg pointer-events-none 
+                    transition-all duration-200
+                    ${isHovered 
+                      ? "border border-cyan-400/50 shadow-[0_0_10px_rgba(6,182,212,0.2)]" 
+                      : "border border-cyan-500/20"}`}
+      />
 
-        {/* Click Ripples */}
-        {ripples.map((ripple) => (
-            <span
-                key={ripple.id}
-                className="absolute rounded-full transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r
-                     from-cyan-300 to-cyan-500 opacity-50 animate-ripple pointer-events-none"
-                style={{ left: ripple.x, top: ripple.y, width: "200%", paddingBottom: "200%" }}
-            ></span>
-        ))}
+      {/* Refined Click Ripple */}
+      {ripples.map((ripple) => (
+        <span
+          key={ripple.id}
+          className="absolute rounded-full transform -translate-x-1/2 -translate-y-1/2 
+                    mix-blend-screen pointer-events-none bg-cyan-400/30"
+          style={{
+            left: ripple.x,
+            top: ripple.y,
+            width: "150%",
+            paddingBottom: "150%",
+          }}
+        />
+      ))}
 
-        {/* Glitch Effect */}
-        {glitchActive && (
-            <>
-              <div className="absolute inset-0 bg-cyan-400/10 -translate-x-1 translate-y-1 mix-blend-screen"></div>
-              <div className="absolute inset-0 bg-purple-500/10 translate-x-1 -translate-y-1 mix-blend-screen"></div>
-            </>
-        )}
-      </motion.button>
+      {/* Minimalist Glitch Effect */}
+      {glitchActive && (
+        <>
+          <div className="absolute inset-0 bg-cyan-400/5 -translate-x-0.5 translate-y-0.5" />
+          <div className="absolute inset-0 bg-cyan-500/5 translate-x-0.5 -translate-y-0.5" />
+        </>
+      )}
+    </motion.button>
   );
 };
 
