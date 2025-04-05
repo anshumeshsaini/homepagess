@@ -38,9 +38,9 @@ function App() {
   };
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
-      {/* Initial loading animation */}
+      {/* Initial loading animation with SMALLER font size for all devices */}
       <div className={`fixed inset-0 bg-black z-50 flex flex-col items-center justify-center transition-opacity duration-1000 ${loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-        <div className="text-cyan-400 text-4xl font-mono mb-8">
+        <div className="text-cyan-400 text-[10px] xs:text-[12px] sm:text-sm md:text-base lg:text-lg font-mono mb-8 w-5/6 sm:w-auto text-center">
           <GlitchText text={bootMessages[bootSequence]} intensity="high" />
         </div>
         <div className="w-64 h-2 bg-gray-800 rounded-full overflow-hidden">
@@ -74,12 +74,12 @@ function App() {
 
       {/* Matrix rain effect */}
 
-      {/* Main content */}
+      {/* Main content - fix container centering on all views */}
       <div className="relative z-10 flex flex-col min-h-screen">
         <NavBar scrollToComponent={ScrollElement} />
         
-        <main className="flex-1">
-          <div className="container">
+        <main className="flex-1 flex justify-center items-center">
+          <div className="container mx-auto px-4">
             <HeroSection />
           </div>
         </main>
