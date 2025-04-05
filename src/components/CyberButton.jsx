@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
+// Cyberpunk-themed button with interactive hover effects, glitch animations and ripples
 const CyberButton = ({ children, primary = false, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const [ripples, setRipples] = useState([]);
   const [glitchActive, setGlitchActive] = useState(false);
 
+  // Trigger random glitch effects when hovered
   useEffect(() => {
     if (isHovered) {
       const glitchInterval = setInterval(() => {
         setGlitchActive(true);
         setTimeout(() => setGlitchActive(false), 80);
       }, Math.random() * 2000 + 500);
+      
       return () => clearInterval(glitchInterval);
     }
   }, [isHovered]);
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
+  
   const handleMouseDown = (e) => {
     setIsPressed(true);
     const button = e.currentTarget;
@@ -29,6 +33,7 @@ const CyberButton = ({ children, primary = false, onClick }) => {
     setRipples([...ripples, newRipple]);
     setTimeout(() => setRipples((r) => r.filter((r) => r.id !== newRipple.id)), 600);
   };
+  
   const handleMouseUp = () => setIsPressed(false);
 
   return (
@@ -48,7 +53,6 @@ const CyberButton = ({ children, primary = false, onClick }) => {
       onMouseUp={handleMouseUp}
       onClick={onClick}
     >
-      {/* Subtle Background Gradient */}
       <div className={`absolute inset-0 transition-opacity duration-200 
                     ${isHovered ? "opacity-100" : "opacity-0"}
                     ${primary 
@@ -57,12 +61,10 @@ const CyberButton = ({ children, primary = false, onClick }) => {
                     }`}
       />
 
-      {/* Button Text with Modern Spacing */}
       <span className="relative z-10 flex items-center justify-center tracking-wide">
         {children}
       </span>
 
-      {/* Modernized Border Effect */}
       <div className={`absolute inset-0 rounded-lg pointer-events-none 
                     transition-all duration-200
                     ${isHovered 
@@ -70,7 +72,6 @@ const CyberButton = ({ children, primary = false, onClick }) => {
                       : "border border-cyan-500/20"}`}
       />
 
-      {/* Refined Click Ripple */}
       {ripples.map((ripple) => (
         <span
           key={ripple.id}
@@ -85,7 +86,6 @@ const CyberButton = ({ children, primary = false, onClick }) => {
         />
       ))}
 
-      {/* Minimalist Glitch Effect */}
       {glitchActive && (
         <>
           <div className="absolute inset-0 bg-cyan-400/5 -translate-x-0.5 translate-y-0.5" />

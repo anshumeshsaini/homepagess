@@ -1,23 +1,26 @@
 import React, { useState, useRef } from 'react';
-import './TechIconCarousel.css';
+import '../styles/TechIconCarousel.css';
 
+// Interactive 3D carousel with draggable rotation that displays activity cards
 const TechIconCarousel = ({ items }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [startX, setStartX] = useState(0);
   const containerRef = useRef(null);
 
+  // Handle start of drag interaction for both mouse and touch events
   const handleMouseDown = (e) => {
     setIsDragging(true);
     setStartX(e.type === 'touchstart' ? e.touches[0].pageX : e.pageX);
   };
 
+  // Calculate rotation based on drag distance with responsive sensitivity
   const handleMouseMove = (e) => {
     if (!isDragging) return;
     
     const currentX = e.type === 'touchmove' ? e.touches[0].pageX : e.pageX;
     const deltaX = currentX - startX;
-    const sensitivity = window.innerWidth < 768 ? 1 : 0.5; // Increased sensitivity on mobile
+    const sensitivity = window.innerWidth < 768 ? 1 : 0.5;
     
     setRotation(prev => prev + deltaX * sensitivity);
     setStartX(currentX);
@@ -30,7 +33,7 @@ const TechIconCarousel = ({ items }) => {
   return (
     <div 
       ref={containerRef}
-      className="tech-carousel"
+      className="tech-carousel w-full h-full min-h-[180px] max-h-[350px] m-0"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -40,7 +43,11 @@ const TechIconCarousel = ({ items }) => {
       onTouchEnd={handleMouseUp}
     >
       <div 
-        className={`slider ${isDragging ? 'dragging' : ''}`}
+        className={`slider ${isDragging ? 'dragging' : ''} 
+                   w-[110px] h-[154px] top-[45%] left-1/2
+                   sm:w-[100px] sm:h-[150px]
+                   md:w-[120px] md:h-[180px]
+                   lg:w-[154px] lg:h-[220px] lg:top-1/2`}
         style={{ 
           '--quantity': items.length,
           transform: `perspective(1000px) translate(-50%, -50%) rotateX(-16deg) rotateY(${rotation}deg)`
@@ -53,16 +60,34 @@ const TechIconCarousel = ({ items }) => {
             style={{ '--position': index + 1 }}
           >
             <div className="cyber-icon-box">
-              <div className="cyber-icon">
-                <svg 
-                  viewBox="0 0 24 24" 
-                  className="w-8 h-8 text-cyan-400"
-                >
-                  <path d={item.icon} fill="currentColor" />
-                </svg>
+              <div className="card-front p-[0.35rem] gap-2 sm:p-2 md:p-3 lg:p-[0.6rem]">
+                <div className="cyber-icon w-10 h-10 min-w-10 min-h-10 p-1.5 mb-0.5
+                                sm:w-9 sm:h-9
+                                md:w-10 md:h-10 
+                                lg:w-12 lg:h-12">
+                  <svg 
+                    viewBox="0 0 24 24" 
+                    width="24"
+                    height="24"
+                    aria-hidden="true"
+                    fill="currentColor"
+                  >
+                    <path d={item.icon} />
+                  </svg>
+                </div>
+                <span className="activity-label m-0 p-0 px-0 
+                                sm:px-0.5 md:px-1 lg:px-1.5 
+                                lg:mt-0.5">
+                  {item.activity}
+                </span>
               </div>
-              <span className="activity-label">{item.activity}</span>
-              <div className="tooltip">{item.description}</div>
+              
+              <div className="card-back p-[0.5rem]">
+                <div className="description p-[0.35rem] 
+                                sm:p-[0.3rem] md:p-[0.5rem] lg:p-[0.5rem]">
+                  {item.description}
+                </div>
+              </div>
             </div>
           </div>
         ))}

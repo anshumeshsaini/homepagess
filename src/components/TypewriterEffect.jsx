@@ -1,67 +1,37 @@
 import React, { useState, useEffect } from 'react';
 
-const CosmicTypewriter = ({
-                            text,
-                            minDelay = 10,
-                            maxDelay = 90,
-                            cursor = true,
-                            backspace = true,
-                            loop = true,
-                            pauseTime = 3000
-                          }) => {
+// Creates a realistic typewriter animation effect with blinking cursor
+const TypewriterEffect = ({ text }) => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
-  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const quantumDelay = Math.random() * (maxDelay - minDelay) + minDelay;
-
-    if (isTyping && currentIndex < text.length) {
+    if (currentIndex < text.length && isTyping) {
       const timeout = setTimeout(() => {
         setDisplayText(prev => prev + text[currentIndex]);
         setCurrentIndex(prev => prev + 1);
-      }, quantumDelay);
+      }, Math.random() * 100 + 50);
       return () => clearTimeout(timeout);
+    } else if (currentIndex >= text.length) {
+      const blinkTimeout = setTimeout(() => {
+        setIsTyping(false);
+      }, 2000);
+      return () => clearTimeout(blinkTimeout);
     }
-
-    if (backspace && !isTyping && !isDeleting) {
-      setTimeout(() => setIsDeleting(true), pauseTime);
-    }
-
-    if (isDeleting && displayText.length > 0) {
-      const timeout = setTimeout(() => {
-        setDisplayText(prev => prev.slice(0, -1));
-      }, quantumDelay);
-      return () => clearTimeout(timeout);
-    }
-
-    if (isDeleting && displayText.length === 0) {
-      setIsDeleting(false);
-      setIsTyping(true);
-      setCurrentIndex(0);
-    }
-
-    if (!isTyping && !backspace && loop) {
-      setTimeout(() => {
-        setIsTyping(true);
-        setCurrentIndex(0);
-        setDisplayText('');
-      }, pauseTime);
-    }
-  }, [currentIndex, text, isTyping, displayText, isDeleting, backspace, loop]);
+  }, [currentIndex, text, isTyping]);
 
   return (
-      <span className="cosmic-typewriter" style={{
-        fontFamily: 'Galactic Mono',
-        color: '#fbfafa',
-        letterSpacing: '4px',
-
-      }}>
-      {displayText}
-        {cursor && <span className={`text-cyan-400 ${isTyping || isDeleting ? 'animate-blink' : ''}`}>&#x25A0;</span>}
-    </span>
+    <div className="inline-flex items-center">
+      <span className="font-['Orbitron'] text-white font-bold">
+        {displayText}
+      </span>
+      <span 
+        className={`ml-0.5 h-5 w-2 bg-white ${isTyping ? 'animate-pulse' : 'animate-blink'}`}
+        style={{animation: isTyping ? 'none' : 'blink 1s step-end infinite'}}
+      ></span>
+    </div>
   );
 };
 
-export default CosmicTypewriter;
+export default TypewriterEffect;
