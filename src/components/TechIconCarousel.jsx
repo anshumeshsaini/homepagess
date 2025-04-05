@@ -1,17 +1,20 @@
 import React, { useState, useRef } from 'react';
-import './TechIconCarousel.css';
+import '../styles/TechIconCarousel.css';
 
+// Interactive 3D carousel with draggable rotation that displays activity cards
 const TechIconCarousel = ({ items }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [startX, setStartX] = useState(0);
   const containerRef = useRef(null);
 
+  // Handle start of drag interaction for both mouse and touch events
   const handleMouseDown = (e) => {
     setIsDragging(true);
     setStartX(e.type === 'touchstart' ? e.touches[0].pageX : e.pageX);
   };
 
+  // Calculate rotation based on drag distance with responsive sensitivity
   const handleMouseMove = (e) => {
     if (!isDragging) return;
     
@@ -57,7 +60,6 @@ const TechIconCarousel = ({ items }) => {
             style={{ '--position': index + 1 }}
           >
             <div className="cyber-icon-box">
-              {/* Front of card */}
               <div className="card-front p-[0.35rem] gap-2 sm:p-2 md:p-3 lg:p-[0.6rem]">
                 <div className="cyber-icon w-10 h-10 min-w-10 min-h-10 p-1.5 mb-0.5
                                 sm:w-9 sm:h-9
@@ -80,7 +82,6 @@ const TechIconCarousel = ({ items }) => {
                 </span>
               </div>
               
-              {/* Back of card */}
               <div className="card-back p-[0.5rem]">
                 <div className="description p-[0.35rem] 
                                 sm:p-[0.3rem] md:p-[0.5rem] lg:p-[0.5rem]">

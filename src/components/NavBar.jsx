@@ -2,14 +2,16 @@ import { useCallback, useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { LavalampMenu } from "react-llamp-menu";
 import logo from "../img/ps-final1.png";
-import "./nav.css";
+import "../styles/nav.css";
 
+// Interactive navbar with scroll-reactive behavior, animated SVG rings and responsive positioning
 const Navbar = ({ scrollToComponent }) => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isScrollingUp, setIsScrollingUp] = useState(true);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const controls = useAnimation();
 
+  // Calculate and set SVG circle stroke dash properties for visual animation
   const setProgress = useCallback(() => {
     const circles = document.querySelectorAll("circle");
     circles.forEach((ele) => {
@@ -68,7 +70,6 @@ const Navbar = ({ scrollToComponent }) => {
 
   return (
     <nav>
-      {/* ---- Show NavBar on Hover ---- */}
       <div
         className="fixed lg:top-0 bottom-0 h-6 w-screen z-30"
         onMouseOver={() =>
@@ -78,9 +79,7 @@ const Navbar = ({ scrollToComponent }) => {
         }
       ></div>
 
-      {/* ---- Logo ----- */}
       <div className="relative w-20 h-20 lg:w-28 lg:h-28 translate-x-4 translate-y-4">
-        {/* svg circles to rotate for logo */}
         {[40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53].map((e) => (
           <svg
             key={e}
@@ -102,7 +101,6 @@ const Navbar = ({ scrollToComponent }) => {
         />
       </div>
 
-      {/* ----------------- Nav Buttons ----------------- */}
       <motion.nav
         initial={{ y: 0 }}
         animate={controls}
@@ -117,7 +115,6 @@ const Navbar = ({ scrollToComponent }) => {
               text-cyan-300 rounded-full"
           >
             <ul className="flex items-center">
-              {/* Add the items to the array */}
               {["Home", "About", "Upcoming", "Events"].map((e) => (
                 <li key={e}>
                   <button
@@ -137,6 +134,7 @@ const Navbar = ({ scrollToComponent }) => {
   );
 }
 
+// Limits the rate at which a function can fire to improve performance
 function debounce(func, wait) {
   let timeout;
   return function (...args) {

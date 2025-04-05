@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+// Creates a realistic typewriter animation effect with blinking cursor
 const TypewriterEffect = ({ text }) => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);

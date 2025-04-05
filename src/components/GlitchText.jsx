@@ -1,7 +1,6 @@
 import React from 'react';
-import './Glitch.css';
+import '../styles/Glitch.css';
 
-// Simple component that uses the CSS-only glitch effect
 const GlitchText = ({ text }) => {
   return (
     <h2 className="glitch layers" data-text={text}>

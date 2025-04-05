@@ -1,9 +1,9 @@
-/* Glitch text effect based on reference */
+/* Text glitch effect with layered animations and clip-path transforms */
 .glitch {
   font-size: clamp(40px, 10vw, 100px);
   line-height: 1;
   display: inline-block;
-  color: inherit; /* Keep inherited color (cyan) for the base text */
+  color: inherit;
   z-index: 2;
   letter-spacing: 5px;
   filter: drop-shadow(0 1px 3px);
@@ -22,18 +22,17 @@
 }
 
 .layers::before {
-  top: 5px; /* Reduced from 10px */
-  left: 8px; /* Reduced from 15px */
+  top: 5px;
+  left: 8px;
   color: #e0287d;
 }
 
 .layers::after {
-  top: 3px; /* Reduced from 5px */
-  left: -5px; /* Reduced from -10px */
+  top: 3px;
+  left: -5px;
   color: #1bc7fb;
 }
 
-/* Clip path animations */
 .glitch span {
   animation: paths 5s step-end infinite;
 }
@@ -335,35 +334,34 @@
   }
 }
 
-/* Restored font animation with white color */
 @keyframes font {
   0% {
     font-weight: 100;
-    color: #fff; /* Restored white color */
+    color: #fff;
     filter: blur(3px);
   }
 
   20% {
     font-weight: 500;
-    color: #fff; /* White */
+    color: #fff;
     filter: blur(0);
   }
 
   50% {
     font-weight: 300;
-    color: #fff; /* White */
+    color: #fff;
     filter: blur(2px);
   }
 
   60% {
     font-weight: 700;
-    color: #fff; /* White */
+    color: #fff;
     filter: blur(0);
   }
 
   90% {
     font-weight: 500;
-    color: #fff; /* White */
+    color: #fff;
     filter: blur(6px);
   }
 }
@@ -371,31 +369,30 @@
 @keyframes movement {
   0% {
     top: 0px;
-    left: -10px; /* Reduced from -20px */
+    left: -10px;
   }
 
   15% {
-    top: 5px; /* Reduced from 10px */
-    left: 5px; /* Reduced from 10px */
+    top: 5px;
+    left: 5px;
   }
 
   60% {
-    top: 3px; /* Reduced from 5px */
-    left: -5px; /* Reduced from -10px */
+    top: 3px;
+    left: -5px;
   }
 
   75% {
-    top: -3px; /* Reduced from -5px */
-    left: 10px; /* Reduced from 20px */
+    top: -3px;
+    left: 10px;
   }
 
   100% {
-    top: 5px; /* Reduced from 10px */
-    left: 3px; /* Reduced from 5px */
+    top: 5px;
+    left: 3px;
   }
 }
 
-/* Responsive adjustments - SMALLER TEXT SIZES */
 @media (max-width: 480px) {
   .glitch {
     font-size: clamp(16px, 7vw, 24px);

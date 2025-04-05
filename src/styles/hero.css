@@ -1,3 +1,4 @@
+/* Glitch animation effects for hero text display */
 @keyframes glitch-skew {
     0% { transform: skew(0deg) scale(1); }
     20% { transform: skewX(10deg) scale(1.05); }
@@ -72,7 +73,7 @@
     animation: glitch-after 1s infinite linear alternate;
 }
 .glitch-text {
-    font-size: 3rem; /* Reduced from 4rem */
+    font-size: 3rem;
     font-weight: bold;
     color: #05e3ff;
     position: relative;

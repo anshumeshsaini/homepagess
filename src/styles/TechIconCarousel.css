@@ -1,4 +1,4 @@
-/* Main container - removed dimension properties */
+/* 3D carousel with rotating tech cards and flip animations */
 .tech-carousel {
   text-align: center;
   position: relative;
@@ -25,7 +25,6 @@
   pointer-events: none;
 }
 
-/* Slider - removed dimension properties */
 .tech-carousel .slider {
   position: absolute;
   transform-style: preserve-3d;
@@ -39,7 +38,6 @@
   transition: none;
 }
 
-/* Item transform */
 .tech-carousel .item {
   position: absolute;
   inset: 0;
@@ -50,7 +48,6 @@
   perspective: 1000px;
 }
 
-/* Card container - kept position and 3D properties */
 .tech-carousel .cyber-icon-box {
   position: relative;
   width: 100%;
@@ -61,7 +58,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 }
 
-/* Card front/back - removed padding */
 .card-front,
 .card-back {
   position: absolute;
@@ -78,7 +74,6 @@
   border: 1px solid #06070a;
 }
 
-/* Front card styling */
 .card-front {
   background: linear-gradient(145deg, #1a2333 0%, #10151f 100%);
   border-bottom: 2px solid #090d13;
@@ -87,13 +82,11 @@
   border-top: 1px solid #1d2637;
 }
 
-/* Back card styling */
 .card-back {
   transform: rotateY(180deg);
   background: linear-gradient(135deg, #141d2e 0%, #0d1220 100%);
 }
 
-/* Icon styling - removed dimension properties */
 .card-front .cyber-icon {
   display: flex;
   align-items: center;
@@ -110,7 +103,6 @@
   color: white;
 }
 
-/* Activity label - removed padding and margin */
 .card-front .activity-label {
   font-family: 'Orbitron', sans-serif;
   font-size: 0.7rem;
@@ -128,7 +120,6 @@
   text-overflow: ellipsis;
 }
 
-/* Description text - removed padding */
 .card-back .description {
   font-size: 0.7rem;
   line-height: 1.4;
@@ -144,7 +135,6 @@
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-/* Cleaned up scrollbar */
 .card-back .description::-webkit-scrollbar {
   width: 3px;
   background: rgba(0, 0, 0, 0.2);
@@ -155,13 +145,11 @@
   border-radius: 3px;
 }
 
-/* Hover effect */
 .tech-carousel .item:hover .cyber-icon-box {
   transform: rotateY(180deg);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
 }
 
-/* Responsive transform values - keeping only transform properties */
 @media screen and (max-width: 480px) {
   .tech-carousel .item {
     transform: rotateY(calc((var(--position) - 1) * (360deg / var(--quantity)))) translateZ(160px);
@@ -251,7 +239,6 @@
   }
 }
 
-/* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
   .tech-carousel .item:active .cyber-icon-box {
     transform: rotateY(180deg);

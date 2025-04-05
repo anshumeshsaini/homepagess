@@ -7,8 +7,9 @@ import TechIcon from './TechIcon.jsx';
 import StatCounter from './StatCounter.jsx';
 import BackgroundCanvas from './BackgroundCanvas.jsx';
 import TechIconCarousel from './TechIconCarousel';
-import "./hero.css";
+import "../styles/hero.css";
 
+// Main landing section with cyberpunk visual theme, hero content and interactive elements
 const HeroSection = () => {
   const sectionRef = useRef(null);
 
@@ -17,27 +18,19 @@ const HeroSection = () => {
       <BackgroundCanvas />
 
       <div className="w-full max-w-7xl mx-auto relative z-20">
-        {/* Main grid layout - ensure centering on all breakpoints */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mx-auto">
-          {/* Left Column */}
           <div className="space-y-8 text-center lg:text-left">
             <h1 className="font-bold leading-tight">
-              {/* Mobile-optimized layout with stacked text, desktop back to original */}
               <div className="flex flex-col md:block">
-                {/* Mobile: "Welcome" centered / Desktop: Original "Welcome to" in one line */}
                 <div className="block md:inline text-4xl sm:text-5xl md:text-6xl xl:text-7xl text-white mb-1 md:mb-4">
                   Welcome 
                 </div>
                 
-                {/* On mobile: "to" centered below "Welcome" */}
                 <div className="block md:hidden text-3xl sm:text-4xl text-white mb-3">
                   to
                 </div>
-                
-                {/* On desktop: "to" inline with "Welcome" with a single space */}
                 <div className="hidden md:inline text-6xl xl:text-7xl text-white"> to </div>
                 
-                {/* CYBERONITES with glitch effect */}
                 <div className="text-cyan-400 md:block">
                   <h2 className="glitch layers text-4xl sm:text-5xl md:text-6xl xl:text-7xl" data-text="CYBERONITES">
                     <span>CYBERONITES</span>
@@ -68,14 +61,11 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right Column with Tailwind classes */}
           <div className="relative flex flex-col gap-6 sm:gap-8 lg:gap-10 mt-4 lg:mt-0 h-auto">
-            {/* Carousel container with Tailwind height classes */}
             <div className="h-[240px] sm:h-[280px] md:h-[300px] lg:h-[320px] w-full -mt-4">
               <TechIconCarousel items={activities} />
             </div>
 
-            {/* Text Container with improved styling */}
             <div className="h-auto w-full mt-2 lg:mt-0">
               <div className="cyber-text-container p-4 sm:p-5 lg:p-6 rounded-md border border-cyan-500/30 hover:border-cyan-400/60">
                 <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-cyan-300 leading-tight">
@@ -96,7 +86,6 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Stats Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 mx-auto">
           <StatCounter value="500+" label="Active Members" />
           <StatCounter value="50+" label="Workshops" />
